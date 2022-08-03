@@ -1,49 +1,74 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+    margin: 0;
+}
+.add{
+    margin-top: 20px;
+}
+input{margin-top: 5px;
+    padding-left: 5px;
+}
+label{
+    display: block;
+    min-width: 180px;
+    p{
+        margin: 0;
+        text-align: left;
+    }
+
+
+}
+.header{
+   
+    outline: solid red;
+    margin: 0;
+}
+.main{
+    margin: 0;
+}
+.addBook{
+   
+}
+.inputWrapper{
+ display: flex;
+ justify-content: space-evenly;
+ //need to fix the wrapping issues
+}
 .book{
     text-align: center;
-    width: fit-content;
     display: inline-block;
-    margin: 0 20px;
+    margin: 20px;
     border: solid black 2px;
-    border-radius: 10px;
-}
-.books{
-    display:inline;
-    width: 100vw;
-}
-.modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    background-color: white;
-    width: 500px;
-    max-width: 80%;
-        
-    .modalHeader{
-        padding: 10px 15px;
-        display: flex;
-        justify-content:space-between;
-        border-bottom: 1px solid black;
+    border-radius: 20px;
+    min-width: 200px;
+    box-shadow: 5px 5px 5px -5px;
+    padding: 10px;
+    h2{
+        margin: 0;
+    }
+    h3{
+        margin-top: 5px;
+        font-style: italic;
     }
 }
-.modal.active{
-    transform: translate(-50%, -50%) scale(0);
+.books{
+    width: 100vw;
+
+    margin-top: 10px;
+    box-shadow: 0px -5px 5px -3px;
 }
-#overlay{
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    pointer-events: none;
-}
-#overlay.active{
-    pointer-events: all;
-    opacity: 1;
+
+button{
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: 600;
+    color: white;
+    background-color: black;
+    &:hover{
+        outline: solid rgb(102, 102, 102) 1px;
+    }
 }
