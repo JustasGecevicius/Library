@@ -14,7 +14,7 @@ let bookArr = [{
     "page_number": "250",
     "status": "Read"
 }, {
-    "name": "Toras",
+    "name": "Zaibas",
     "author": "Zeba",
     "page_number": "250",
     "status": "Read"
@@ -52,8 +52,17 @@ let displayBooks = function(bTitle, bAuthor, pages, rStatus){
         div.appendChild(readStatus);
         div.appendChild(deleteButton);
         container.appendChild(div);
-        deleteButton.addEventListener("click", () => {
-            //remove the parent element
+        deleteButton.addEventListener("click", (e) => {
+            console.log(e.path[1].classList[1]);
+            for(x in bookArr)
+            {
+                if(bookArr[x].name === e.path[1].classList[1]){
+                    e.path[1].remove();
+                    bookArr.splice(x, 1);
+                };
+            }
+            console.log(bookArr);
+
         })
 
     }
@@ -67,10 +76,5 @@ function Book(name, author, pageNum, status){
     this.status = status;
 }
 
-let displayDiv = function(){
-    for(x in bookArr){
-
-    }
-}
 
 addButton.addEventListener("click", addBook);
