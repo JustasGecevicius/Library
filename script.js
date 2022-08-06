@@ -26,14 +26,11 @@ let addBook = function(){
     }
     else{       
         bookArr.push(new Book(bookTitle.value, author.value, pageNum.value, readStatus.value));
-        console.log(bookArr);
         displayBooks(bookTitle.value, author.value, pageNum.value, readStatus.value);
     }
 }
-let displayBooks = function(bTitle, bAuthor, pages, rStatus){
-    container.textContent = "";
+function createBooks(){
     for(x in bookArr){
-        console.log(bookArr[x].name)
         const div = document.createElement("div");
         const title = document.createElement("h2");
         const author = document.createElement("h3");
@@ -45,7 +42,7 @@ let displayBooks = function(bTitle, bAuthor, pages, rStatus){
         author.innerText = bookArr[x].author;
         pageNum.innerText = bookArr[x].page_number;
         readStatus.innerText = bookArr[x].status;
-        div.classList.add("book", `${bookTitle.value}`);
+        div.classList.add("book", `${title.innerText}`);
         div.appendChild(title);
         div.appendChild(author);
         div.appendChild(pageNum);
@@ -53,19 +50,21 @@ let displayBooks = function(bTitle, bAuthor, pages, rStatus){
         div.appendChild(deleteButton);
         container.appendChild(div);
         deleteButton.addEventListener("click", (e) => {
-            console.log(e.path[1].classList[1]);
             for(x in bookArr)
             {
                 if(bookArr[x].name === e.path[1].classList[1]){
                     e.path[1].remove();
                     bookArr.splice(x, 1);
+                    break;
                 };
             }
-            console.log(bookArr);
-
         })
 
     }
+}
+let displayBooks = function(bTitle, bAuthor, pages, rStatus){
+    container.textContent = "";
+    createBooks();
 }
 displayBooks();
 
