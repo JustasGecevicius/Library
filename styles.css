@@ -71,4 +71,38 @@ button {
 }
 button:hover {
   outline: solid rgb(102, 102, 102) 1px;
+}
+
+.addBook {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  z-index: 10;
+  background-color: white;
+  width: 800px;
+  max-width: 90%;
+}
+
+.addBook.active {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  transition: 200ms ease-in-out;
+}
+
+#overlay.active {
+  pointer-events: all;
+  opacity: 1;
 }/*# sourceMappingURL=styles.css.map */
