@@ -101,4 +101,6 @@ addButton.addEventListener("click", addBook);
 // initializing the books that are stored in code
 close.addEventListener("click", closeModal);
 modalButton.addEventListener("click", openModal);
+overlay.addEventListener("click", closeModal);
 displayBooks();
+
