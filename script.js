@@ -6,6 +6,8 @@ const pageNum = document.querySelector("#pageNum");
 const readStatus = document.querySelector("#selectStatus");
 const close = document.querySelector("[data-close-button]");
 const overlay = document.querySelector('#overlay');
+const modal = document.querySelector(".addBook");
+const modalButton = document.querySelector(".openModal");
 bookTitle.value = "Toras"; 
 author.value = "Zeba";
 pageNum.value = "250";
@@ -79,6 +81,14 @@ let displayBooks = function(bTitle, bAuthor, pages, rStatus){
     container.textContent = "";
     createBooks();
 }
+let closeModal = function() {
+    overlay.classList.remove("active");
+    modal.classList.remove("active");
+}
+let openModal = function(){
+    overlay.classList.add("active");
+    modal.classList.add("active");
+}
 //the constructor for the book objects
 function Book(name, author, pageNum, status){
     this.name = name;
@@ -89,4 +99,6 @@ function Book(name, author, pageNum, status){
 //adding the event listener to the add button
 addButton.addEventListener("click", addBook);
 // initializing the books that are stored in code
+close.addEventListener("click", closeModal);
+modalButton.addEventListener("click", openModal);
 displayBooks();

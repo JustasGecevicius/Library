@@ -11,9 +11,10 @@
 <body>
     <div class="header">
         <h1>The Library</h1>
+        <button class="openModal" type="button">Add a Book</button>
     </div>
     <div class="main">
-        <div class="addBook">
+        <div class="addBook active">
             <div class="inputWrapper">
                 <label for="title"> <p>Book title</p><input type="text" id="title"></label>
                 <label for="author"><p>Author</p><input type="text" id="author"></label>
@@ -26,14 +27,14 @@
                 </select>
                 </label> 
             </div>
-            <button data-modal-target="#modal" type="button" class="add">Add a Book</button>
-            <button data-close-button type="button" class="close"></button>
+            <button data-modal-target="#modal" type="button" class="add">Add</button>
+            <button data-close-button type="button" class="close">Close</button>
         </div>
        
         <div class="books">
 
         </div>
-        <div id="overlay" class=""></div>
+        <div id="overlay" class="active"></div>
     </div>
 </body>
 </html>

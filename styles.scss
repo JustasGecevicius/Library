@@ -31,7 +31,7 @@ label{
 
 .inputWrapper{
  display: flex;
- justify-content: space-evenly;
+ flex-direction: column;
  //need to fix the wrapping issues
 }
 .book{
@@ -69,20 +69,34 @@ button{
     }
 }
 .addBook{
-
+    padding: 1%;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     transition: 200ms ease-in-out;
     border: 1px solid black;
+    border-radius: 20px;
     z-index: 10;
     background-color: white;
-    width: 800px;
-    max-width: 90%;
+    width: 600px;
+    max-width: 70%;
+    input{
+        width: 80%;
+    }
+    label{
+        p{
+            text-align: center;
+            margin-top: 2%;
+        }
+        select{
+            margin-top: 1%;
+        }
+    }
 }
 .addBook.active{
     transform: scale(1) translate(-50%, -50%);
+
 }
 #overlay{
     position: fixed;
@@ -91,7 +105,8 @@ button{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba($color: black, $alpha: 0.5);
+    background-color: rgba($color: black, $alpha: 0.8);
+    box-shadow: inset 20px 20px 1000px;
     pointer-events: none;
     transition: 200ms ease-in-out;
 }

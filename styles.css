@@ -35,7 +35,7 @@ label p {
 
 .inputWrapper {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
 }
 
 .book {
@@ -74,16 +74,28 @@ button:hover {
 }
 
 .addBook {
+  padding: 1%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
   border: 1px solid black;
+  border-radius: 20px;
   z-index: 10;
   background-color: white;
-  width: 800px;
-  max-width: 90%;
+  width: 600px;
+  max-width: 70%;
+}
+.addBook input {
+  width: 80%;
+}
+.addBook label p {
+  text-align: center;
+  margin-top: 2%;
+}
+.addBook label select {
+  margin-top: 1%;
 }
 
 .addBook.active {
@@ -97,7 +109,8 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: inset 20px 20px 1000px;
   pointer-events: none;
   transition: 200ms ease-in-out;
 }
