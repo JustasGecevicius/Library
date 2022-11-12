@@ -19,6 +19,14 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+const firebaseAppConfig = getFirebaseConfig();
+const app = initializeApp(firebaseAppConfig);
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+let userID;
+
 const container = document.querySelector(".books");
 const addButton = document.querySelector(".add");
 const bookTitle = document.querySelector("#title");
@@ -29,6 +37,16 @@ const close = document.querySelector("[data-close-button]");
 const overlay = document.querySelector("#overlay");
 const modal = document.querySelector(".addBook");
 const modalButton = document.querySelector(".openModal");
+const signInButton = document.querySelector(".singInButton");
+const signOutButton = document.querySelector(".signOutButton");
+const userPic = document.querySelector(".userImage");
+const username = document.querySelector(".username");
+const userDiv = document.querySelector(".user");
+const form = document.querySelector(".submissionForm");
+bookTitle.value = "x";
+author.value = "s";
+pageNum.value = "3";
+readStatus.value = "read";
 
 const BOOK_TEMPLATE =
   '<div class="book">' +
@@ -39,15 +57,11 @@ const BOOK_TEMPLATE =
   '<button class="removeBookButton">Remove</button>' +
   "</div>";
 
-const firebaseAppConfig = getFirebaseConfig();
-const app = initializeApp(firebaseAppConfig);
-const db = getFirestore(app);
-
 const saveBook = async ({ name, author, pageNum, status }) => {
-  // Add a new message entry to the Firebase database.
+  //Add a new message entry to the Firebase database.
   try {
-    console.log("try");
-    await addDoc(collection(getFirestore(), "books"), {
+    // console.log("try", userID);
+    await addDoc(collection(getFirestore(), userID), {
       bookName: name,
       bookAuthor: author,
       bookPages: pageNum,
@@ -60,8 +74,9 @@ const saveBook = async ({ name, author, pageNum, status }) => {
 };
 
 const loadBooks = async () => {
-  // Create the query to load the last 12 messages and listen for new ones.
-  const recentBooksQuery = query(collection(getFirestore(), "books"));
+
+  if(userID) {console.log("loadBooks", userID);
+  const recentBooksQuery = query(collection(getFirestore(), userID));
   // Start listening to the query.
   onSnapshot(recentBooksQuery, function (snapshot) {
     snapshot.docChanges().forEach(function (change) {
@@ -80,12 +95,12 @@ const loadBooks = async () => {
         );
       }
     });
-  });
+  });}
 };
 const removeBook = async (e) => {
-  //console.log(e);
+  console.log(e);
   const id = e.target.dataset.id;
-  await deleteDoc(doc(db, "books", id));
+  await deleteDoc(doc(db, userID, id));
 };
 
 function displayBook(
@@ -96,8 +111,8 @@ function displayBook(
   bookPages,
   bookStatus
 ) {
-  var div = document.getElementById(id) || createAndInsertBook(id, timestamp);
-
+  if(id)
+  {var div = document.getElementById(id) || createAndInsertBook(id, timestamp);
   console.log("div", div);
   console.log("bookName", bookName);
   div.querySelector(".bookName").textContent = bookName;
@@ -107,11 +122,10 @@ function displayBook(
   const button = div.querySelector(".removeBookButton");
   button.dataset.id = id;
   button.addEventListener("click", removeBook);
-
   // Show the card fading-in and scroll to view the new message.
   setTimeout(function () {
     div.classList.add("visible");
-  }, 1);
+  }, 1);}
 }
 
 function deleteBook(id) {
@@ -162,29 +176,104 @@ function createAndInsertBook(id, timestamp) {
   return div;
 }
 
-const form = document.querySelector(".submissionForm");
+const signIn = async () => {
+  // Sign in Firebase using popup auth and Google as the identity provider.
+  var provider = new GoogleAuthProvider();
+  await signInWithPopup(getAuth(), provider);
+};
 
+const clearDiv = () => {
+    while(container.firstChild){
+      container.firstChild.remove();
+    }
+}
 
+const signOutUser = () => {
+  // Sign out of Firebase.
+  clearDiv();
+  signOut(getAuth());
+};
 
+const initFirebaseAuth = () => {
+  // Listen to auth state changes.
+  onAuthStateChanged(getAuth(), authStateObserver);
+};
+
+function getProfilePicUrl() {
+  return (
+    getAuth().currentUser.photoURL ||
+    "/src/Images/109317646-icône-de-vecteur-de-profil-pic-isolé-sur-fond-transparent-concept-de-logo-profil-pic-pic.webp"
+  );
+}
+
+function getUserName() {
+  return getAuth().currentUser.displayName;
+}
+
+const getUserId = () => {
+  if (user !== null) {
+    console.log("user");
+    const uid = user.uid;
+    return uid;
+  } else {
+    console.log("no user");
+  }
+};
+
+// Triggers when the auth state change for instance when the user signs-in or signs-out.
+function authStateObserver(user) {
+  if (user) {
+    // User is signed in!
+    // Get the signed-in user's profile pic and name.
+    userID = user.uid;
+    var profilePicUrl = getProfilePicUrl();
+    var userName = getUserName();
+
+    console.log(profilePicUrl);
+
+    // Set the user's profile pic and name.
+    userPic.style.backgroundImage = "url(" + profilePicUrl + ")";
+    username.textContent = userName;
+
+    // Show user's profile and sign-out button.
+    userDiv.classList.remove("inactive");
+    signOutButton.classList.remove("inactive");
+
+    // Hide sign-in button.
+    signInButton.classList.add("inactive");
+
+    // // We save the Firebase Messaging Device token and enable notifications.
+    // saveMessagingDeviceToken();
+    loadBooks();
+  } else {
+    console.log("userSignedOut");
+    // User is signed out!
+    // Show user's profile and sign-out button.
+    userDiv.classList.add("inactive");
+    signOutButton.classList.add("inactive");
+
+    // Hide sign-in button.
+    signInButton.classList.remove("inactive");
+  }
+}
 
 const addBook = (e) => {
-    console.log("event", e);
+  console.log("event", e);
   if (
-    e.target[0].value == "" ||
-    e.target[1].value == "" ||
-    e.target[2].value == "" ||
-    e.target[3].value == ""
+    bookTitle.value == "" ||
+    author.value == "" ||
+    pageNum.value == "" ||
+    readStatus.value == ""
   ) {
     console.log("please fill in all of the fields to add a book");
   } else {
-
     const newBook = {
-        name : e.target[0].value,
-        author : e.target[1].value,
-        pageNum : e.target[2].value,
-        status : e.target[3].value,
-    }
-    
+      name: bookTitle.value,
+      author: author.value,
+      pageNum: pageNum.value,
+      status: readStatus.value,
+    };
+
     console.log("newBOok", newBook);
     saveBook({ ...newBook });
   }
@@ -194,10 +283,6 @@ const addBook = (e) => {
 let closeModal = function () {
   overlay.classList.remove("active");
   modal.classList.remove("active");
-  bookTitle.value = "";
-  author.value = "";
-  pageNum.value = "";
-  readStatus.value = "";
 };
 
 let openModal = function () {
@@ -205,9 +290,11 @@ let openModal = function () {
   modal.classList.add("active");
 };
 
-form.addEventListener("submit", addBook);
+addButton.addEventListener("click", addBook);
 close.addEventListener("click", closeModal);
 modalButton.addEventListener("click", openModal);
 overlay.addEventListener("click", closeModal);
+signInButton.addEventListener("click", signIn);
+signOutButton.addEventListener("click", signOutUser);
 
-loadBooks();
+initFirebaseAuth();
