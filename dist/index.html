@@ -33,10 +33,10 @@
     <div class="main">
         <div class="addBook">
             <div class="inputWrapper">
-                <label for="title"> Book title<input type="text" id="title"></label>
-                <label for="author">Author<input type="text" id="author"></label>
-                <label for="pageNum">Page Number<input type="text" id="pageNum"></label>
-                <label for="status">Book status
+                <label class="addLabel" for="title"><p class="labelTextWrapper">Book title</p><input type="text" id="title"></label>
+                <label class="addLabel" for="author"><p class="labelTextWrapper">Author</p><input type="text" id="author"></label>
+                <label class="addLabel" for="pageNum"><p class="labelTextWrapper">Page Number</p><input type="text" id="pageNum"></label>
+                <label class="addLabel" for="status"><p class="labelTextWrapper">Book Status</p>
                 <select name="readStatus" id="selectStatus">
                     <option value="" selected>Choose an option</option>
                     <option value="read">Read</option>
@@ -45,8 +45,10 @@
                 </label>
  
             </div>
-            <button data-modal-target="#modal" type="button" class="add">Add</button>
-            <button data-close-button type="button" class="close">Close</button>
+            <div class="addBookButtons">
+                <button data-modal-target="#modal" type="button" class="add">Add</button>
+                <button data-close-button type="button" class="close">Close</button>
+            </div>
         </div>
        
         <div class="books">
