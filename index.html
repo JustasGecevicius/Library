@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="styles.css" defer>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="header">
+        <div class="headerTitleDiv">
+            <h1>The Library</h1>
+            <button class="openModal" type="button">Add a Book</button>
+        </div>
+        <div class="headerWrapper">
+            <div class="user inactive">
+                <div class="userImage"></div>
+                
+                <p class="username"></p>
+            </div>
+            <div class="signInButtonDiv">
+                <button class="signOutButton inactive">Sign Out</button>
+                <button class="singInButton">Sign In</button>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="addBook">
+            <div class="inputWrapper">
+                <label class="addLabel" for="title"><p class="labelTextWrapper">Book title</p><input type="text" id="title"></label>
+                <label class="addLabel" for="author"><p class="labelTextWrapper">Author</p><input type="text" id="author"></label>
+                <label class="addLabel" for="pageNum"><p class="labelTextWrapper">Page Number</p><input type="text" id="pageNum"></label>
+                <label class="addLabel" for="status"><p class="labelTextWrapper">Book Status</p>
+                <select name="readStatus" id="selectStatus">
+                    <option value="" selected>Choose an option</option>
+                    <option value="read">Read</option>
+                    <option value="notread">Not Read</option>
+                </select>
+                </label>
+ 
+            </div>
+            <div class="addBookButtons">
+                <button data-modal-target="#modal" type="button" class="add">Add</button>
+                <button data-close-button type="button" class="close">Close</button>
+            </div>
+        </div>
+       
+        <div class="books">
+
+        </div>
+        <div id="overlay" class=""></div>
+    </div>
+</body>
+</html>

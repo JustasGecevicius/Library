@@ -1,0 +1,172 @@
+.addBook .inputWrapper, .addBook, .header .headerWrapper .user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  font-family: "Roboto";
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  text-align: center;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.add {
+  margin-top: 20px;
+}
+
+.header {
+  box-shadow: 0px 1px 5px 0px;
+  min-height: 100px;
+  position: fixed;
+  width: 100%;
+  top: -5px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+.header .headerWrapper {
+  display: flex;
+  align-items: center;
+}
+.header .headerWrapper .user {
+  flex-direction: row;
+  padding-right: 1rem;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+}
+.header .headerWrapper .user .userImage {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.main {
+  margin-top: 8rem;
+}
+
+.book {
+  text-align: center;
+  display: inline-block;
+  margin: 20px;
+  border: solid black 2px;
+  border-radius: 20px;
+  min-width: 200px;
+  box-shadow: 5px 5px 5px -5px;
+  padding: 10px;
+}
+.book h2 {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+.book h3 {
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.addBook {
+  flex-direction: column;
+  padding: 1%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border-radius: 20px;
+  z-index: 10;
+  background-color: white;
+  width: 80%;
+  max-width: 600px;
+  border: 2px solid black;
+  height: 250px;
+}
+.addBook .inputWrapper {
+  flex-direction: column;
+  width: 90%;
+  margin-top: 2rem;
+}
+.addBook .inputWrapper label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.addBook .inputWrapper label p {
+  min-width: 100px;
+}
+.addBook .inputWrapper label input,
+.addBook .inputWrapper label select {
+  width: 70%;
+  padding: 0.2rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-weight: 300;
+  font-style: italic;
+  box-shadow: 3px 3px 5px -3px;
+}
+.addBook .inputWrapper label input:focus,
+.addBook .inputWrapper label select:focus {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+.addBook.active {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: inset 20px 20px 1000px;
+  pointer-events: none;
+  transition: 200ms ease-in-out;
+}
+
+#overlay.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.inactive {
+  transform: scale(0);
+  position: fixed;
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: 600;
+  color: white;
+  background-color: black;
+}
+button:hover {
+  outline: solid rgb(102, 102, 102) 1px;
+}
+
+.removeBookButton, .bookStatus {
+  margin-top: 1rem;
+}
