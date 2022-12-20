@@ -37,7 +37,7 @@ const modal = document.querySelector(".addBook");
 const modalButton = document.querySelector(".openModal");
 const signInButton = document.querySelector(".singInButton");
 const signOutButton = document.querySelector(".signOutButton");
-const userPic = document.querySelector(".userImage");
+
 const username = document.querySelector(".username");
 const userDiv = document.querySelector(".user");
 
@@ -187,28 +187,20 @@ const initFirebaseAuth = () => {
   onAuthStateChanged(getAuth(), authStateObserver);
 };
 
-function getProfilePicUrl() {
-  return (
-    getAuth().currentUser.photoURL ||
-    "/src/Images/109317646-icône-de-vecteur-de-profil-pic-isolé-sur-fond-transparent-concept-de-logo-profil-pic-pic.webp"
-  );
-}
-
 function getUserName() {
   return getAuth().currentUser.displayName;
 }
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
-function authStateObserver(user) {
+async function authStateObserver(user) {
   if (user) {
     // User is signed in!
     // Get the signed-in user's profile pic and name.
     userID = user.uid;
-    var profilePicUrl = getProfilePicUrl();
     var userName = getUserName();
 
     // Set the user's profile pic and name.
-    userPic.style.backgroundImage = "url(" + profilePicUrl + ")";
+
     username.textContent = userName;
 
     // Show user's profile and sign-out button.
